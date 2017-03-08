@@ -27,7 +27,7 @@ error = (e) ->
 	else
 		console.log('Not retrying')
 		console.log('Exiting')
-		process.exit()
+		process.exit(1)
 
 app.get '/ssids', (req, res) ->
 	res.json(ssids)
@@ -59,7 +59,7 @@ run = ->
 			.then ->
 				console.log('Connected')
 				console.log('Exiting')
-				process.exit()
+				process.exit(0)
 			.catch(error)
 		else
 			console.log('Credentials not found')
@@ -90,7 +90,7 @@ else if not process.argv[2]?
 else
 	console.log('Invalid clear flag passed')
 	console.log('Exiting')
-	process.exit()
+	process.exit(2)
 
 device = process.env.RESIN_DEVICE_TYPE
 if !device
@@ -98,7 +98,7 @@ if !device
 	if !device
 		console.log('Device type not found - did you set the DEVICE_TYPE environment variable?')
 		console.log('Exiting')
-		process.exit()
+		process.exit(2)
 console.log('Device type is ' + device)
 
 systemd.exists('NetworkManager.service')
@@ -124,4 +124,4 @@ systemd.exists('NetworkManager.service')
 .catch (e) ->
 	console.log(e)
 	console.log('Exiting')
-	process.exit()
+	process.exit(1)
